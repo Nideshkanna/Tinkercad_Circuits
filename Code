@@ -1,20 +1,16 @@
-
-# Robotic Arm Control
+/*Robotic Arm Control
 
 This project controls a robotic arm using flex sensors and servo motors with an Arduino. Each finger of the robotic hand is controlled by a corresponding flex sensor, allowing for intuitive control.
-
-## Components Used
+ Components Used
 - Arduino Uno
 - Flex sensors (5)
 - Servo motors (5)
 - Jumper wires
 - Breadboard
+*/
 
-## Circuit Diagram
-(To be added)
 
-## Code
-```cpp
+
 #include <Servo.h>
 
 // Define flex sensor pins
@@ -100,3 +96,4 @@ void loop() {
 
   delay(2000); // Short delay for stability
 }
+
