@@ -1,0 +1,85 @@
+#include <Servo.h>
+
+// Define flex sensor pins
+const int flexPinThumb = A0;
+const int flexPinIndex = A1;
+const int flexPinMiddle = A2;
+const int flexPinRing = A3;
+const int flexPinPinky = A4;
+
+// Define servo pins
+const int servoPinThumb = 2;
+const int servoPinIndex = 3;
+const int servoPinMiddle = 4;
+const int servoPinRing = 5;
+const int servoPinPinky = 6;
+
+// Create servo objects
+Servo thumbServo;
+Servo indexServo;
+Servo middleServo;
+Servo ringServo;
+Servo pinkyServo;
+
+void setup() {
+  // Attach each servo to its respective pin
+  thumbServo.attach(servoPinThumb);
+  indexServo.attach(servoPinIndex);
+  middleServo.attach(servoPinMiddle);
+  ringServo.attach(servoPinRing);
+  pinkyServo.attach(servoPinPinky);
+
+  // Initialize serial communication for debugging
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Read flex sensor values
+  int flexThumb = analogRead(flexPinThumb);
+  int flexIndex = analogRead(flexPinIndex);
+  int flexMiddle = analogRead(flexPinMiddle);
+  int flexRing = analogRead(flexPinRing);
+  int flexPinky = analogRead(flexPinPinky);
+
+  // Map sensor values to servo angles
+  int angleThumb = map(flexThumb, 767, 964, 90, 180);
+  int angleIndex = map(flexIndex, 767, 964, 90, 180);
+  int angleMiddle = map(flexMiddle, 767, 964, 90, 180);
+  int angleRing = map(flexRing, 767, 964, 90, 180);
+  int anglePinky = map(flexPinky, 767, 964, 0, 180);
+
+  // Set servo positions
+  thumbServo.write(angleThumb);
+  indexServo.write(angleIndex);
+  middleServo.write(angleMiddle);
+  ringServo.write(angleRing);
+  pinkyServo.write(anglePinky);
+
+  // Print values for debugging
+  Serial.print("Thumb: ");
+  Serial.print(flexThumb);
+  Serial.print(" -> ");
+  Serial.println(angleThumb);
+  
+  Serial.print("Index: ");
+  Serial.print(flexIndex);
+  Serial.print(" -> ");
+  Serial.println(angleIndex);
+  
+  Serial.print("Middle: ");
+  Serial.print(flexMiddle);
+  Serial.print(" -> ");
+  Serial.println(angleMiddle);
+  
+  Serial.print("Ring: ");
+  Serial.print(flexRing);
+  Serial.print(" -> ");
+  Serial.println(angleRing);
+  
+  Serial.print("Pinky: ");
+  Serial.print(flexPinky);
+  Serial.print(" -> ");
+  Serial.println(anglePinky);
+
+  delay(2000); // Short delay for stability
+}
